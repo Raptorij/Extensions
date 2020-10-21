@@ -4,6 +4,16 @@ using UnityEngine;
 
 public static class VectorExtensions
 {
+	public static Vector2 RandomPointOnCircle(float radius)
+	{
+		return Random.insideUnitCircle.normalized * radius;
+	}
+	
+	public static Vector3 RandomPointOnSphere(float radius)
+	{
+		return Random.onUnitSphere * radius;
+	}
+
 	public static Vector3 ClampInBounds(this Vector3 current, Bounds bounds)
 	{
 		current = new Vector3(Mathf.Clamp(current.x, bounds.min.x, bounds.max.x),
