@@ -8,7 +8,6 @@ public static class VectorExtensions
 	{
 		return Random.insideUnitCircle.normalized * radius;
 	}
-	
 	public static Vector3 RandomPointOnSphere(float radius)
 	{
 		return Random.onUnitSphere * radius;
@@ -26,6 +25,18 @@ public static class VectorExtensions
 	{
 		Vector2 delta = newLocation - centerPosition;
 		float distance = delta.magnitude; 
+
+		if (distance > radius)
+		{
+			newLocation = centerPosition + delta.normalized * radius;
+		}
+		return newLocation;
+	}
+
+	public static Vector3 ClampInRadius(this Vector3 newLocation, Vector3 centerPosition, float radius)
+	{
+		Vector3 delta = newLocation - centerPosition;
+		float distance = delta.magnitude;
 
 		if (distance > radius)
 		{
@@ -101,5 +112,19 @@ public static class VectorExtensions
 		Vector3 AB = b - a;
 		Vector3 AV = value - a;
 		return Vector3.Dot(AV, AB) / Vector3.Dot(AB, AB);
+	}
+
+	public static float GetAngleFromVector(this Vector3 dir)
+	{
+		dir = dir.normalized;
+		float n = Mathf.Atan2(dir.z, dir.x) * Mathf.Rad2Deg;
+		if (n < 0) n += 360;
+
+		return n;
+	}
+
+	public static Vector3 ClampVector3(Vector3 vec, Vector3 min, Vector3 max)
+	{
+		return Vector3.Min(max, Vector3.Max(min, vec));
 	}
 }

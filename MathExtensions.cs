@@ -18,4 +18,21 @@ public static class MathExtensions
 	{
 		return number >= min && number <= max;
 	}
+
+	public static int Fibonacсi(int n)
+	{
+		return n > 1 ? Fibonacсi(n - 1) + Fibonacсi(n - 2) : n;
+	}
+
+	public static int Factorial(int x)
+	{
+		if (x == 0)
+		{
+			return 1;
+		}
+		else
+		{
+			return x * Factorial(x - 1);
+		}
+	}
 }

@@ -30,6 +30,11 @@ public static class ColorExtensions
 		return Color.magenta;
 	}
 
+	public static string Hex(this Color color)
+	{
+		return "#" + ColorUtility.ToHtmlStringRGBA(color);
+	}
+
 	public static Color Invert(this Color color)
 	{
 		return new Color(1.0f - color.r, 1.0f - color.g, 1.0f - color.b, 1.0f);
