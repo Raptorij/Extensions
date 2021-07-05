@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using System.Linq;
 
 public static class GameObjectExtensions
 {
@@ -50,6 +51,45 @@ public static class GameObjectExtensions
 		//Selection.objects;
 	}
 
+	[MenuItem("GameObject/Extend/Parent To Center Of Selected")]
+	static void ParentToCenterOfSelected()
+	{
+		if (Selection.gameObjects.Length > 0)
+		{
+			var groupParent = Selection.gameObjects[0].transform.parent;
+			bool oneParent = Selection.gameObjects.All(x => x.transform.parent == groupParent);
+
+			if (oneParent)
+			{
+				var centerOfSelected = new Vector3(0, 0, 0);
+				var previousParent = Selection.gameObjects[0].transform.parent;
+				for (int i = 0; i < Selection.gameObjects.Length; i++)
+				{
+					var render = Selection.gameObjects[i].GetComponentInChildren<Renderer>();
+					if (render)
+					{
+						centerOfSelected += render.bounds.center;						
+					}
+					else
+					{
+						centerOfSelected += Selection.gameObjects[i].transform.position;						
+					}
+				}
+				centerOfSelected /= Selection.gameObjects.Length;
+
+				Selection.gameObjects.ToList().ForEach(x => x.transform.SetParent(null));
+
+				Undo.RegisterCompleteObjectUndo(groupParent.gameObject, "Parent to center");
+				groupParent.position = centerOfSelected;
+
+				Selection.gameObjects.ToList().ForEach(x => x.transform.SetParent(groupParent));
+
+
+				Selection.activeGameObject = groupParent.gameObject;
+			}		
+		}
+		//Selection.objects;
+	}
 
 	private static void EngageRenameMode()
 	{
