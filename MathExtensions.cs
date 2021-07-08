@@ -19,7 +19,7 @@ public static class MathExtensions
 		return number >= min && number <= max;
 	}
 
-	public static int Fibonacсi(int n)
+	public static int Fibonacci(int n)
 	{
 		return n > 1 ? Fibonacсi(n - 1) + Fibonacсi(n - 2) : n;
 	}
