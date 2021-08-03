@@ -20,4 +20,17 @@ public static class LayerExtensions
     {
         return 1 << indexLayer;
     }
+
+    public static LayerMask GetPhysicsLayerMask(this int currentLayer)
+    {
+        int finalMask = 0;
+        for (int i = 0; i < 32; i++)
+        {
+            if (!Physics.GetIgnoreLayerCollision(currentLayer, i))
+            {
+                finalMask = finalMask | (1 << i);
+            }
+        }
+        return finalMask;
+    }
 }
