@@ -21,7 +21,7 @@ public static class MathExtensions
 
 	public static int Fibonacci(int n)
 	{
-		return n > 1 ? Fibonacсi(n - 1) + Fibonacсi(n - 2) : n;
+		return n > 1 ? Fibonacci(n - 1) + Fibonacci(n - 2) : n;
 	}
 
 	public static int Factorial(int x)
