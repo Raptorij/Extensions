@@ -47,12 +47,84 @@ public static class StringExtensions
 
     public static string GetMostlyMatch(this string[] all, string compare)
     {
+        List<int> matchList = new List<int>();        
+        foreach (string Track in all)
+        {
+            int matchCount = 0;
+            for (int i = 0; i < compare.Length; i++)
+            {
+                if (Track.Length > i)
+                {
+                    if (compare[i] == Track[i])
+                    {
+                        matchCount++;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                else
+                {
+                    break;
+                }
+            }
+            matchList.Add(matchCount);
+        }
+        string match = all.ToList().ElementAt(matchList.IndexOf(matchList.Max()));
+        return match;
+    }
+
+    public static string[] GetAllWithPrefix(this string[] all, string compare)
+    {
         List<int> matchList = new List<int>();
         foreach (string Track in all)
         {
-            matchList.Add(LevenshteinDistance(Track, compare));
+            int matchCount = 0;
+            for (int i = 0; i < compare.Length; i++)
+            {
+                if (Track.Length > i)
+                {
+                    if (compare[i] == Track[i])
+                    {
+                        matchCount++;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                else
+                {
+                    break;
+                }
+            }
+            matchList.Add(matchCount);
         }
-        string match = all.ToList().ElementAt(matchList.IndexOf(matchList.Min()));
-        return match;
+
+        int maxMatchCount = int.MinValue;
+        for (int i = 0; i < matchList.Count; i++)
+        {
+            if (matchList[i] > maxMatchCount)
+            {
+                maxMatchCount = matchList[i];
+            }
+        }
+        var indexes = new List<int>();
+        for (int i = 0; i < matchList.Count; i++)
+        {
+            if (matchList[i] == maxMatchCount)
+            {
+                indexes.Add(i);
+            }
+        }
+
+        var result = new List<string>();
+        for (int i = 0; i < indexes.Count; i++)
+        {
+            string match = all[indexes[i]];
+            result.Add(match);
+        }
+        return result.ToArray();
     }
 }
