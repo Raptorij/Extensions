@@ -10,7 +10,8 @@ public class CustomizableGridLayout : MonoBehaviour
     public RectOffset padding;
     public TextAnchor childAligment;
     public int maxCount;
-    private void Update()
+
+    private void LateUpdate()
     {
         int children = transform.childCount;
         var childs =new List<Transform>();
