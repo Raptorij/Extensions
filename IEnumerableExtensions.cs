@@ -8,7 +8,14 @@ public static class IEnumerableExtensions
 {
     public static T GetRandom<T>(this List<T> source)
     {
-        return source[Random.Range(0, source.Count)];
+        if (source != null && source.Count > 0)
+        {
+            return source[Random.Range(0, source.Count)];
+        }
+        else
+        {
+            return default(T);
+        }
     }
 
     public static int GetRandomIndex<T>(this List<T> source)
