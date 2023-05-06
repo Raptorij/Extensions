@@ -127,4 +127,26 @@ public static class VectorExtensions
 	{
 		return Vector3.Min(max, Vector3.Max(min, vec));
 	}
+
+	public static Vector3 GetHighlights(this Vector3 source)
+	{
+		float max = Mathf.NegativeInfinity;
+		var result = Vector3.zero;
+		if (Mathf.Abs(source.x) >= max)
+		{
+			max = Mathf.Abs(source.x);
+			result = Vector3.right * Mathf.Sign(source.x);
+		}
+		if (Mathf.Abs(source.y) >= max)
+		{
+			max = Mathf.Abs(source.y);
+			result = Vector3.up * Mathf.Sign(source.y);
+		}
+		if (Mathf.Abs(source.z) >= max)
+		{
+			max = Mathf.Abs(source.z);
+			result = Vector3.forward * Mathf.Sign(source.z);
+		}
+		return result;
+	}
 }
