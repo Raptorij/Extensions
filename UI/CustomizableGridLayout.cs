@@ -22,6 +22,8 @@ public class CustomizableGridLayout : MonoBehaviour
                 childs.Add(transform.GetChild(i));
             }
         }
+        if (childs.Count == 0)
+            return;
 
         float minX = GetComponent<RectTransform>().rect.xMin;
         float maxY = GetComponent<RectTransform>().rect.yMax - cellSize.y;
