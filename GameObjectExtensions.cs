@@ -23,4 +23,10 @@ public static class GameObjectExtensions
 		}
 		return null;
 	}
+
+	public static bool TryGetChildComponent<T>(this Component origin, out T component) where T : Component
+	{
+		component = origin.GetComponentInChildren<T>();
+		return component != null;
+	}
 }
