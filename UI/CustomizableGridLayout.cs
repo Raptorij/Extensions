@@ -17,9 +17,13 @@ public class CustomizableGridLayout : MonoBehaviour
         var childs =new List<Transform>();
         for (int i = 0; i < children; ++i)
         {
-            if (transform.GetChild(i).gameObject.activeSelf)
+            var child = transform.GetChild(i);
+            if (child.gameObject.activeSelf)
             {
-                childs.Add(transform.GetChild(i));
+                if (child.TryGetComponent<LayoutElement>(out var layoutElement) && layoutElement.ignoreLayout)
+                    continue;
+
+                childs.Add(child);
             }
         }
         if (childs.Count == 0)
