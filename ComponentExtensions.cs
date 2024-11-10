@@ -8,4 +8,10 @@ public static class ComponentExtensions
 	{
 		target.gameObject.SetActive(activate);
 	}
+
+	public static bool TryGetComponentInChildren<T>(this GameObject target, out T component) where T : Component
+	{
+		component = target.GetComponentInChildren<T>();
+		return component != null;
+	}
 }
