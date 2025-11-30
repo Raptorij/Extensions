@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
 
 public static class ListExtensions
 {
@@ -249,6 +250,21 @@ public static class ListExtensions
 
     public static T LastItem<T>(this List<T> list)
     {
-        return list[list.Count - 1];
+        return list[^1];
+    }
+    
+    public static bool CompareToOther<T>(this IEnumerable<T> source, IEnumerable<T> other)
+    {
+        bool result = true;
+        result &= source.Count() == other.Count();
+        if (result)
+        {
+            foreach (var item in source)
+            {
+                result &= other.Contains(item);
+            }
+        }
+
+        return result;
     }
 }
