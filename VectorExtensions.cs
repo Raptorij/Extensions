@@ -87,6 +87,11 @@ public static class VectorExtensions
 	{
 		return new Vector3(0, current.y, current.z);
 	}
+	
+	public static Vector3 y(this Vector3 current)
+	{
+		return new Vector3(0, current.y, 0);
+	}
 
 	public static float Sum(this Vector3 current)
 	{
